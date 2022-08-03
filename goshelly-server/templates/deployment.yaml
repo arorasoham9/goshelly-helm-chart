@@ -1,54 +1,73 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: goshelly
+  labels:
+    name: goshelly
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: goshelly
+spec:
+  storageClassName: goshelly
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: goshelly
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/goshelly"
+  storageClassName: goshelly
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-all
+  namespace: goshelly
+spec:
+  podSelector:
+    matchLabels:
+      app: goshelly
+  ingress:
+    - {}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "goshelly-server.fullname" . }}
+  name: goshelly
+  namespace: default #goshelly
   labels:
-    {{- include "goshelly-server.labels" . | nindent 4 }}
+    app: goshelly
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: 5
   selector:
     matchLabels:
-      {{- include "goshelly-server.selectorLabels" . | nindent 6 }}
+      app: goshelly
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "goshelly-server.selectorLabels" . | nindent 8 }}
+        app: goshelly
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "goshelly-server.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: Always
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: connection
-              containerPort: 443
-            - name: api
-              containerPort: 9000
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: goshelly
+          image: arorasoham9/goshelly-server:linux
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: "/mnt/goshelly"
+              name: goshelly
+      volumes:
+        - name: goshelly
+          persistentVolumeClaim:
+            claimName: goshelly

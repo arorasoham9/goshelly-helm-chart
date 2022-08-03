@@ -5,10 +5,10 @@
 replicaCount: 3
 
 image:
-  repository: arorasoham9/goshelly-server:linux
+  repository: arorasoham9/goshelly-server
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "linux"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -41,6 +41,9 @@ securityContext:
 service:
   type: LoadBalancer
   port: 443
+
+pvc:
+  name: goshelly
 
 ingress:
   enabled: false
