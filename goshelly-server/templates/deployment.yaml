@@ -80,7 +80,7 @@ metadata:
   labels:
     app: goshelly
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: goshelly
@@ -94,6 +94,18 @@ spec:
         - name: goshelly
           image: arorasoham9/goshelly-server:linuxTLS
           imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
           volumeMounts:
             - mountPath: "/mnt/goshelly"
               name: goshelly
