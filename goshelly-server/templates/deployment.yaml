@@ -95,15 +95,15 @@ spec:
           image: arorasoham9/goshelly-server:linuxTLS
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 9000
           readinessProbe:
             tcpSocket:
-              port: 8080
+              port: 9000
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             tcpSocket:
-              port: 8080
+              port: 9000
             initialDelaySeconds: 15
             periodSeconds: 20
           volumeMounts:
