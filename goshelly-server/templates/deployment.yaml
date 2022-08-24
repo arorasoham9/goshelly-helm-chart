@@ -57,7 +57,7 @@ spec:
       image: ubuntu:latest
       command: ["/bin/sleep", "3650d"]
       volumeMounts:
-        - mountPath: "/mnt/goshelly-helm"
+        - mountPath: "/mnt/goshelly"
           name: goshelly-helm
 ---
 kind: NetworkPolicy
@@ -107,7 +107,7 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 20
           volumeMounts:
-            - mountPath: "/mnt/goshelly-helm"
+            - mountPath: "/mnt/goshelly"
               name: goshelly-helm
       volumes:
         - name: goshelly-helm
