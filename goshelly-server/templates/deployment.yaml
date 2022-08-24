@@ -1,15 +1,15 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: goshelly
+  name: goshelly-helm
   labels:
-    name: goshelly
+    name: goshelly-helm
 
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: goshelly
+  name: goshelly-helm
 provisioner: docker.io/hostpath
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
@@ -17,8 +17,8 @@ volumeBindingMode: Immediate
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: goshelly
-  namespace: goshelly
+  name: goshelly-helm
+  namespace: goshelly-helm
 spec:
   capacity:
     storage: 1Gi
@@ -26,15 +26,15 @@ spec:
     - ReadWriteMany
   hostPath:
     path: "/mnt/goshelly"
-  storageClassName: goshelly
+  storageClassName: goshelly-helm
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: goshelly
-  namespace: goshelly
+  name: goshelly-helm
+  namespace: goshelly-helm
 spec:
-  storageClassName: goshelly
+  storageClassName: goshelly-helm
   accessModes:
     - ReadWriteMany
   resources:
@@ -45,53 +45,53 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: goshelly
-  namespace: goshelly
+  name: goshelly-helm
+  namespace: goshelly-helm
 spec:
   volumes:
-    - name: goshelly
+    - name: goshelly-helm
       persistentVolumeClaim:
-        claimName: goshelly
+        claimName: goshelly-helm
   containers:
-    - name: goshelly
+    - name: goshelly-helm
       image: ubuntu:latest
       command: ["/bin/sleep", "3650d"]
       volumeMounts:
-        - mountPath: "/mnt/goshelly"
-          name: goshelly
+        - mountPath: "/mnt/goshelly-helm"
+          name: goshelly-helm
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-all
-  namespace: goshelly
+  namespace: goshelly-helm
 spec:
   podSelector:
     matchLabels:
-      app: goshelly
+      app: goshelly-helm
   ingress:
     - {}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: goshelly
-  namespace: goshelly
+  name: goshelly-helm
+  namespace: goshelly-helm
   labels:
-    app: goshelly
+    app: goshelly-helm
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: goshelly
+      app: goshelly-helm
   template:
     metadata:
       labels:
-        app: goshelly
+        app: goshelly-helm
     spec:
       restartPolicy: Always
       containers:
-        - name: goshelly
+        - name: goshelly-helm
           image: arorasoham9/goshelly-server:linux824
           imagePullPolicy: Always
           ports:
@@ -107,11 +107,11 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 20
           volumeMounts:
-            - mountPath: "/mnt/goshelly"
-              name: goshelly
+            - mountPath: "/mnt/goshelly-helm"
+              name: goshelly-helm
       volumes:
-        - name: goshelly
+        - name: goshelly-helm
           persistentVolumeClaim:
-            claimName: goshelly
+            claimName: goshelly-helm
 ---
 
