@@ -25,7 +25,7 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/mnt/goshelly"
+    path: "/mnt/goshelly-helm"
   storageClassName: goshelly-helm
 ---
 apiVersion: v1
@@ -57,7 +57,7 @@ spec:
       image: ubuntu:latest
       command: ["/bin/sleep", "3650d"]
       volumeMounts:
-        - mountPath: "/mnt/goshelly"
+        - mountPath: "/mnt/goshelly-helm"
           name: goshelly-helm
 ---
 kind: NetworkPolicy
@@ -107,7 +107,7 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 20
           volumeMounts:
-            - mountPath: "/mnt/goshelly"
+            - mountPath: "/mnt/goshelly-helm"
               name: goshelly-helm
       volumes:
         - name: goshelly-helm
