@@ -92,7 +92,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: goshelly-helm
-          image: arorasoham9/goshelly-server:linux-helm-824
+          image: arorasoham9/goshelly-server:linux-helm-831
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
