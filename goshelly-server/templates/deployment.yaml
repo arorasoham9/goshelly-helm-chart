@@ -96,16 +96,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
-          readinessProbe:
-            tcpSocket:
-              port: 9000
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: 9000
-            initialDelaySeconds: 15
-            periodSeconds: 20
           volumeMounts:
             - mountPath: "/mnt/goshelly-helm"
               name: goshelly-helm
