@@ -95,7 +95,7 @@ spec:
           image: arorasoham9/goshelly-helm:101722
           imagePullPolicy: Always
           ports:
-            - containerPort: 9000
+            - containerPort: 8443
           volumeMounts:
             - mountPath: "/mnt/goshelly-helm"
               name: goshelly-helm
