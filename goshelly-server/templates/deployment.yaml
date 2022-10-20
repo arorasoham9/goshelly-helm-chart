@@ -110,12 +110,12 @@ metadata:
   name: goshelly-helm
   namespace: goshelly-helm
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    # kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
-  ingressClassName: goshelly-helm
+  # ingressClassName: goshelly-helm
   rules:
     - http:
         paths:
