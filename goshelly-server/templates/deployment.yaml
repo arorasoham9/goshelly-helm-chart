@@ -114,14 +114,17 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-# spec:
-#   rules:
-#     - host: backdoor.aws.araalinetworks.com
-#       http:
-#         paths:
-#           - path: /
-#             backend:
-#               serviceName: goshelly-helm
-#               servicePort: 8443
+spec:
+  ingressClassName: goshelly-helm
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: goshelly-helm
+                port:
+                  number: 8443
 ---
 
