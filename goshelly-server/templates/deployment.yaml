@@ -104,4 +104,22 @@ spec:
           persistentVolumeClaim:
             claimName: goshelly-helm
 ---
-
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: goshelly-helm
+  namespace: goshelly-helm
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+spec:
+  rules:
+    - host: backdoor.aws.araalinetworks.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: goshelly-helm
+              servicePort: 8443
