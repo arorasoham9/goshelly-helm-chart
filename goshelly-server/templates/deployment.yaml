@@ -45,7 +45,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: goshelly-helm
+  name: goshelly-helm-api
   namespace: goshelly-helm
 spec:
   volumes:
@@ -54,8 +54,11 @@ spec:
         claimName: goshelly-helm
   containers:
     - name: goshelly-helm
-      image: ubuntu:latest
-      command: ["/bin/sleep", "3650d"]
+      image: arorasoham9/goshelly-server-api:latest
+      # command: ["/bin/sleep", "3650d"]
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 443
       volumeMounts:
         - mountPath: "/mnt/goshelly-helm"
           name: goshelly-helm

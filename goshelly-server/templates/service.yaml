@@ -12,11 +12,26 @@ spec:
       # nodePort: 3212
       port: 443
       targetPort: 443
-    - name: "api-port1-helm"
-      port: 9000
-      targetPort: 9000
-    - name: "api-port2-helm"
-      port: 8443
-      targetPort: 8443
+    # - name: "api-port1-helm"
+    #   port: 9000
+    #   targetPort: 9000
+    # - name: "api-port2-helm"
+    #   port: 8443
+    #   targetPort: 8443
   selector:
     app: goshelly-helm
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: goshelly-helm-api
+  namespace: goshelly-helm
+spec:
+  type: NodePort
+  ports:
+    - port: 443
+      nodePort: 443
+      name: goshelly-helm-api
+  selector:
+    name: goshelly-helm-api
