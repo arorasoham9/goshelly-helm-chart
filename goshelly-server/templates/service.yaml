@@ -21,14 +21,13 @@ spec:
   selector:
     app: goshelly-helm
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
   name: goshelly-helm-api
   namespace: goshelly-helm
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 443
       nodePort: 443

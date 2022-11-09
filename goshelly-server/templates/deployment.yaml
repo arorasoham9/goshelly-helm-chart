@@ -95,10 +95,10 @@ spec:
       restartPolicy: Always
       containers:
         - name: goshelly-helm
-          image: arorasoham9/goshelly-helm:102022
+          image: arorasoham9/goshelly-helm:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8443
+            - containerPort: 443
           volumeMounts:
             - mountPath: "/mnt/goshelly-helm"
               name: goshelly-helm
