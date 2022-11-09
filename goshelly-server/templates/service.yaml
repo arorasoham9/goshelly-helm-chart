@@ -30,7 +30,7 @@ spec:
   type: LoadBalancer
   ports:
     - port: 443
-      nodePort: 443
+      targetPort: 443
       name: goshelly-helm-api
   selector:
     name: goshelly-helm-api
