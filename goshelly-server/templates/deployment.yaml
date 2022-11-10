@@ -53,10 +53,6 @@ spec:
   selector:
     matchLabels:
       app: goshelly-helm
-  template:
-    metadata:
-      labels:
-        app: goshelly-helm
   volumes:
     - name: goshelly-helm
       persistentVolumeClaim:
