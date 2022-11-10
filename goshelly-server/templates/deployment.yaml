@@ -21,7 +21,7 @@ metadata:
   namespace: goshelly-helm
 spec:
   capacity:
-    storage: 1Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteMany
   hostPath:
@@ -39,7 +39,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
   volumeMode: Filesystem
 ---
 apiVersion: v1
@@ -53,7 +53,7 @@ spec:
       persistentVolumeClaim:
         claimName: goshelly-helm
   containers:
-    - name: goshelly-helm
+    - name: goshelly-helm-api
       image: arorasoham9/goshelly-server-api:latest
       # command: ["/bin/sleep", "3650d"]
       imagePullPolicy: Always
