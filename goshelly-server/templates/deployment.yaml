@@ -65,7 +65,7 @@ spec:
           image: arorasoham9/goshelly-server-api:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 443
+            - containerPort: 8000
           volumeMounts:
             - mountPath: "/mnt/goshelly-helm"
               name: goshelly-helm
