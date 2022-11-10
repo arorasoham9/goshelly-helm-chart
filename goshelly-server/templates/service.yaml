@@ -25,7 +25,7 @@ spec:
   ports:
     - name: "goshelly-helm-api"
       # nodePort: 3212
-      port: 443
-      targetPort: 443
+      port: 9000
+      targetPort: 9000
   selector:
     app: goshelly-helm-api
