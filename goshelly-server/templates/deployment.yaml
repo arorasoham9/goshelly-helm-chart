@@ -112,7 +112,19 @@ spec:
   ingress:
     - {}
 ---
-- template:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goshelly-helm
+  namespace: goshelly-helm
+  labels:
+    app: goshelly-helm
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: goshelly-helm
+  template:
     metadata:
       labels:
         app: goshelly-helm
