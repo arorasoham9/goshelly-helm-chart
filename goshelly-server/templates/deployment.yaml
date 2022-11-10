@@ -47,6 +47,8 @@ kind: Pod
 metadata:
   name: goshelly-helm-api
   namespace: goshelly-helm
+  labels:
+    app: goshelly-helm-api
 spec:
   volumes:
     - name: goshelly-helm
