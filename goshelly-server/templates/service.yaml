@@ -23,8 +23,9 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 443
+    - name: "goshelly-helm-api"
+      # nodePort: 3212
+      port: 443
       targetPort: 443
-      name: goshelly-helm-api
   selector:
     app: goshelly-helm-api
