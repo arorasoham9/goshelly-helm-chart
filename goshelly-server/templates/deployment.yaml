@@ -42,32 +42,64 @@ spec:
       storage: 5Gi
   volumeMode: Filesystem
 ---
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: goshelly-helm-api
   namespace: goshelly-helm
   labels:
     app: goshelly-helm-api
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      app: goshelly-helm
-  volumes:
-    - name: goshelly-helm
-      persistentVolumeClaim:
-        claimName: goshelly-helm
-  containers:
-    - name: goshelly-helm-api
-      image: arorasoham9/goshelly-server-api:latest
-      # command: ["/bin/sleep", "3650d"]
-      imagePullPolicy: Always
-      ports:
-        - containerPort: 443
-      volumeMounts:
-        - mountPath: "/mnt/goshelly-helm"
-          name: goshelly-helm
+      app: goshelly-helm-api
+  template:
+    metadata:
+      labels:
+        app: goshelly-helm-api
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: goshelly-helm-api
+          image: arorasoham9/goshelly-server-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 443
+          volumeMounts:
+            - mountPath: "/mnt/goshelly-helm"
+              name: goshelly-helm
+      volumes:
+        - name: goshelly-helm
+          persistentVolumeClaim:
+            claimName: goshelly-helm
 ---
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: goshelly-helm-api
+#   namespace: goshelly-helm
+#   labels:
+#     app: goshelly-helm-api
+# spec:
+#   selector:
+#     matchLabels:
+#       app: goshelly-helm
+#   volumes:
+#     - name: goshelly-helm
+#       persistentVolumeClaim:
+#         claimName: goshelly-helm
+#   containers:
+#     - name: goshelly-helm-api
+#       image: arorasoham9/goshelly-server-api:latest
+#       # command: ["/bin/sleep", "3650d"]
+#       imagePullPolicy: Always
+#       ports:
+#         - containerPort: 443
+#       volumeMounts:
+#         - mountPath: "/mnt/goshelly-helm"
+#           name: goshelly-helm
+# ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
