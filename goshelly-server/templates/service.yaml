@@ -27,4 +27,4 @@ spec:
       targetPort: 443
       name: goshelly-helm-api
   selector:
-    name: goshelly-helm-api
+    app: goshelly-helm-api
